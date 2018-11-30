@@ -1,0 +1,9 @@
+schema: https://api.graph.cool/simple/v1/cjp121ceymcix0122xluqjwj3
+documents: ./src/**/*.gql
+overwrite: true
+generates:
+  ./src/app/graphql/schema.ts:
+    plugins:
+      - typescript-common
+      - typescript-client
+      - typescript-apollo-angular
