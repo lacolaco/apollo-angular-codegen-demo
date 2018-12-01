@@ -9,7 +9,7 @@ import { AllUsersGQL, CreateUserGQL } from './../graphql/schema';
 })
 export class UserListComponent implements OnInit {
   users$ = this.allUsersGQL
-    .watch()
+    .watch({}, { pollInterval: 3000 })
     .valueChanges.pipe(map(({ data }) => data.allUsers));
 
   constructor(
