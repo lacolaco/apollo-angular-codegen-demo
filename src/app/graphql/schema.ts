@@ -690,6 +690,26 @@ export namespace AllUsers {
   };
 }
 
+export namespace CreateUser {
+  export type Variables = {
+    name: string;
+  };
+
+  export type Mutation = {
+    __typename?: "Mutation";
+
+    createUser: CreateUser | null;
+  };
+
+  export type CreateUser = {
+    __typename?: "User";
+
+    id: string;
+
+    name: string;
+  };
+}
+
 // ====================================================
 // START: Apollo Angular template
 // ====================================================
@@ -713,6 +733,22 @@ export class AllUsersGQL extends Apollo.Query<
   document: any = gql`
     query AllUsers {
       allUsers {
+        id
+        name
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: "root"
+})
+export class CreateUserGQL extends Apollo.Mutation<
+  CreateUser.Mutation,
+  CreateUser.Variables
+> {
+  document: any = gql`
+    mutation CreateUser($name: String!) {
+      createUser(name: $name) {
         id
         name
       }

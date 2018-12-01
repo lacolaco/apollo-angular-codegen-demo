@@ -1,6 +1,6 @@
-import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-import { AllUsersGQL } from './../graphql/schema';
+import { map } from 'rxjs/operators';
+import { AllUsersGQL, CreateUserGQL } from './../graphql/schema';
 
 @Component({
   selector: 'app-user-list',
@@ -12,7 +12,25 @@ export class UserListComponent implements OnInit {
     .watch()
     .valueChanges.pipe(map(({ data }) => data.allUsers));
 
-  constructor(private allUsersGQL: AllUsersGQL) {}
+  constructor(
+    private allUsersGQL: AllUsersGQL,
+    private createUserGQL: CreateUserGQL
+  ) {}
 
   ngOnInit() {}
+
+  createUser(name: string) {
+    this.createUserGQL
+      .mutate(
+        { name },
+        {
+          refetchQueries: [
+            {
+              query: this.allUsersGQL.document
+            }
+          ]
+        }
+      )
+      .toPromise();
+  }
 }

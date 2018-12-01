@@ -1,3 +1,13 @@
+<div>
+  <input #newUserNameInput />
+  <button
+    (click)="createUser(newUserNameInput.value); newUserNameInput.value = ''"
+    [disabled]="newUserNameInput.value == null"
+  >
+    Create New User
+  </button>
+</div>
+
 <ul>
   <li *ngFor="let user of (users$ | async)">{{ user.name }}</li>
 </ul>
