@@ -667,3 +667,59 @@ export enum _ModelMutationType {
 }
 
 export type DateTime = any;
+
+// ====================================================
+// Documents
+// ====================================================
+
+export namespace AllUsers {
+  export type Variables = {};
+
+  export type Query = {
+    __typename?: "Query";
+
+    allUsers: AllUsers[];
+  };
+
+  export type AllUsers = {
+    __typename?: "User";
+
+    id: string;
+
+    name: string;
+  };
+}
+
+// ====================================================
+// START: Apollo Angular template
+// ====================================================
+
+import { Injectable } from "@angular/core";
+import * as Apollo from "apollo-angular";
+
+import gql from "graphql-tag";
+
+// ====================================================
+// Apollo Services
+// ====================================================
+
+@Injectable({
+  providedIn: "root"
+})
+export class AllUsersGQL extends Apollo.Query<
+  AllUsers.Query,
+  AllUsers.Variables
+> {
+  document: any = gql`
+    query AllUsers {
+      allUsers {
+        id
+        name
+      }
+    }
+  `;
+}
+
+// ====================================================
+// END: Apollo Angular template
+// ====================================================
